@@ -11,7 +11,7 @@ from langchain.chains import RetrievalQA
 import streamlit as st
 import pandas as pd
 import os, tempfile
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.callbacks.base import BaseCallbackHandler
 
 class StreamHandler(BaseCallbackHandler):
     def __init__(self, container, initial_text=""):
@@ -67,4 +67,4 @@ if uploaded_file is not None:
             llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, streaming=True, callbacks=[stream_handler])
             qa_chain = RetrievalQA.from_chain_type(llm,retriever=db.as_retriever())
             result = qa_chain({"query": question})
-            st.write(result['result'])
+            # st.write(result['result'])
